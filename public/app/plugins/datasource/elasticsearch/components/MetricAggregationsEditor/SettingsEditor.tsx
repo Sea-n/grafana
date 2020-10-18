@@ -156,9 +156,12 @@ export const SettingsEditor: FunctionComponent<Props> = ({ metric }) => {
           {metric.type === 'percentiles' && (
             <InlineField label="Percentiles" {...inlineFieldProps}>
               <Input
-                onBlur={e => dispatch(changeMetricSetting(metric, 'percents', e.target.value.split(',')))}
+                onBlur={e =>
+                  dispatch(changeMetricSetting(metric, 'percents', e.target.value.split(',').filter(Boolean)))
+                }
                 // TODO: This should be set somewhere else
-                defaultValue={metric.settings?.percents ?? '25,50,75,95,99'}
+                defaultValue={metric.settings?.percents}
+                placeholder="1,5,25,50,75,95,99"
               />
             </InlineField>
           )}
